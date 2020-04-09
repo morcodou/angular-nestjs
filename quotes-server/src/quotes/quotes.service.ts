@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
 import { UpdateQuoteDto } from './dtos/update-quotes.dto';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class QuotesService {
+
+    constructor(@InjectModel('Quote') private readonly quoteModel: Model<Quote>) {
+    }
 
     quotes: Quote[] = [
         {
@@ -24,11 +29,11 @@ export class QuotesService {
     ];
 
     getQuotes(): Quote[] {
-        return this.quotes;
+        return this.quoteModel.find().exec();
     }
 
-    createQuote(quote: Quote): Quote {
-        return quote;
+    createQuote(quote: Quote): Promise<Quote>  {
+        return new this.quoteModel(quote).save();
     }
 
     getQuote(id: string): Quote {
@@ -36,14 +41,14 @@ export class QuotesService {
     }
 
     updateQuote(id: string, updateQuoteDto: UpdateQuoteDto): Quote {
-        const  data = this.quotes.find(quote => quote.id === id);
+        const data = this.quotes.find(quote => quote.id === id);
         data.title = updateQuoteDto.title ? updateQuoteDto.title : data.title;
         data.author = updateQuoteDto.author ? updateQuoteDto.author : data.author;
         return data;
     }
 
     deleteQuote(id: string): Quote {
-        const  quote = this.quotes.find(quote => quote.id === id);
+        const quote = this.quotes.find(quote => quote.id === id);
         return quote;
     }
 }
