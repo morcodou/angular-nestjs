@@ -1,9 +1,8 @@
-import { QuotesService } from './quotes/quotes.service';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { QuotesController } from './quotes/quotes.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import { QuotesModule } from './quotes/quotes.module';
 import 'dotenv/config';
 
 
@@ -11,14 +10,13 @@ import 'dotenv/config';
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URL, {
       useNewUrlParser: true,
-    })
+    }),
+    QuotesModule
   ],
   controllers: [
     AppController,
-    QuotesController
   ],
   providers: [
-    QuotesService,
     AppService
   ],
 })
