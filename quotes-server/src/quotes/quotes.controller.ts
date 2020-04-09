@@ -14,13 +14,13 @@ export class QuotesController {
     }
 
     @Get()
-    getQuotes(): Quote[] {
+    getQuotes(): Promise<Quote[]> {
         return this.quotesService.getQuotes();
     }
 
     @Get(':id')
     @ApiParam({ name: 'id' })
-    getQuote(@Param('id') id): Quote {
+    getQuote(@Param('id') id): Promise<Quote> {
         return this.quotesService.getQuote(id);
     }
 
@@ -31,13 +31,13 @@ export class QuotesController {
 
     @Put(':id')
     @ApiParam({ name: 'id' })
-    updateQuote(@Param('id') id, @Body() updateQuoteDto: UpdateQuoteDto): Quote {
+    updateQuote(@Param('id') id, @Body() updateQuoteDto: UpdateQuoteDto): Promise<Quote> {
         return this.quotesService.updateQuote(id, updateQuoteDto);
     }
 
     @Delete(':id')
     @ApiParam({ name: 'id' })
-    deleteQuote(@Param('id') id): Quote {
+    deleteQuote(@Param('id') id): Promise<Quote> {
         return this.quotesService.deleteQuote(id);
     }
 }
