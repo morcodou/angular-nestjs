@@ -1,6 +1,6 @@
 import { CreateQuoteDto } from './dtos/create-quotes.dto';
 import { QuotesService } from './quotes.service';
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Logger } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
 import { ApiTags, ApiParam } from '@nestjs/swagger';
 import { UpdateQuoteDto } from './dtos/update-quotes.dto';
@@ -9,7 +9,6 @@ import { UpdateQuoteDto } from './dtos/update-quotes.dto';
 @ApiTags('quotes')
 @Controller('quotes')
 export class QuotesController {
-
     constructor(private quotesService: QuotesService) {
     }
 
