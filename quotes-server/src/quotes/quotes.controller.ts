@@ -1,8 +1,8 @@
 import { CreateQuoteDto } from './dtos/create-quotes.dto';
 import { QuotesService } from './quotes.service';
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiParam } from '@nestjs/swagger';
 
 
 @ApiTags('quotes')
@@ -13,8 +13,14 @@ export class QuotesController {
     }
 
     @Get()
-    getQuotes(): string {
+    getQuotes(): Quote[] {
         return this.quotesService.getQuotes();
+    }
+
+    @Get(':id')
+    @ApiParam({ name: 'id' })
+    getQuote(@Param('id') id): Quote {
+        return this.quotesService.getQuote(id);
     }
 
     @Post()
