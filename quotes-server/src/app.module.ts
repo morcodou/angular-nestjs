@@ -4,10 +4,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { QuotesController } from './quotes/quotes.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import 'dotenv/config';
+
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/quotes', {
+    MongooseModule.forRoot(process.env.MONGO_URL, {
       useNewUrlParser: true,
     })
   ],
