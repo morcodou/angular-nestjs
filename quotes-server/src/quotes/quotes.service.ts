@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
 import { UpdateQuoteDto } from './dtos/update-quotes.dto';
 import { Model } from 'mongoose';
@@ -19,7 +19,11 @@ export class QuotesService {
     }
 
     async getQuote(id: string): Promise<Quote> {
-        return await this.quoteModel.findById(id).exec();
+        try {
+            return await this.quoteModel.findById(id).exec();
+        } catch (error) {
+            throw new NotFoundException('Quote not found');
+        }
     }
 
     async updateQuote(id: string, updateQuoteDto: UpdateQuoteDto): Promise<Quote> {
