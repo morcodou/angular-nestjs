@@ -2,7 +2,10 @@ import { CreateQuoteDto } from './dtos/create-quotes.dto';
 import { QuotesService } from './quotes.service';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('quotes')
 @Controller('quotes')
 export class QuotesController {
 
@@ -17,6 +20,5 @@ export class QuotesController {
     @Post()
     createQuote(@Body() createQuoteDto: CreateQuoteDto): Quote {
         return this.quotesService.createQuote(createQuoteDto);
-        // return this.quotesService.createQuote();
     }
 }
