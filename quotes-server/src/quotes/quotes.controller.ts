@@ -1,6 +1,6 @@
 import { CreateQuoteDto } from './dtos/create-quotes.dto';
 import { QuotesService } from './quotes.service';
-import { Controller, Get, Post, Body, Param, Put, Delete, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Logger, HttpException, HttpStatus } from '@nestjs/common';
 import { Quote } from './interfaces/quote.interface';
 import { ApiTags, ApiParam } from '@nestjs/swagger';
 import { UpdateQuoteDto } from './dtos/update-quotes.dto';
@@ -24,8 +24,12 @@ export class QuotesController {
     }
 
     @Post()
-    createQuote(@Body() createQuoteDto: CreateQuoteDto): Promise<Quote> {
-        return this.quotesService.createQuote(createQuoteDto);
+    async createQuote(@Body() createQuoteDto: CreateQuoteDto): Promise<Quote> {
+        try {
+        return await this.quotesService.createQuote(createQuoteDto);
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @Put(':id')
