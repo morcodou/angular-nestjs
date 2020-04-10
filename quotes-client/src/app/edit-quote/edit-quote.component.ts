@@ -1,6 +1,7 @@
 import { QuotesService } from './../quotes.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-quote',
@@ -15,8 +16,11 @@ export class EditQuoteComponent implements OnInit {
   };
   id;
 
-  constructor(private quotesService: QuotesService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(
+    private quotesService: QuotesService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -31,12 +35,14 @@ export class EditQuoteComponent implements OnInit {
     const data = form.value;
     if (this.id) {
       this.quotesService.updateQuote(this.id, data).subscribe(d => {
+        this.snackBar.open('Quote updated');
         console.log(d);
         this.router.navigateByUrl('/quotes');
       });
     }
     else {
       this.quotesService.createQuote(data).subscribe(d => {
+        this.snackBar.open('Quote created');
         console.log(d);
         this.router.navigateByUrl('/quotes');
       });
