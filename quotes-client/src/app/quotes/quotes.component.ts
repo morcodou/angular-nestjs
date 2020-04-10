@@ -1,5 +1,7 @@
 import { QuotesService } from './../quotes.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Quote } from './quote';
 
 @Component({
   selector: 'app-quotes',
@@ -8,7 +10,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class QuotesComponent implements OnInit {
 
-  quotes;
+  quotes: Observable<Quote[]>;
   subscription;
 
   constructor(private quotesService: QuotesService) { }

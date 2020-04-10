@@ -1,7 +1,7 @@
-<div class="home-container">
+<div class="home-container" *ngIf="quote | async as quote">
     <span class="quote">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+        {{ quote.title}}
     </span>
-    <br/>
-    <button mat-raised-button color="primary" [routerLink]="['/quotes']" > View All Quotes</button>
+    <br />
+    <button mat-raised-button color="primary" [routerLink]="['/quotes']"> View All Quotes</button>
 </div>
