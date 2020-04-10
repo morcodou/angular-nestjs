@@ -21,6 +21,13 @@ margin: 2rem;
     }
 }
 
+.create-quote{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
 @media screen and (min-width:768px){
     .quotes-card{
         width: 600px;
